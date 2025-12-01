@@ -166,10 +166,7 @@ pub use postgrest;
 ///     "your-anon-key"
 /// ).unwrap();
 /// ```
-pub fn create_client(
-    url: impl Into<String>,
-    api_key: impl Into<String>,
-) -> Result<SupabaseClient> {
+pub fn create_client(url: impl Into<String>, api_key: impl Into<String>) -> Result<SupabaseClient> {
     SupabaseClient::new(url, api_key)
 }
 
@@ -200,9 +197,18 @@ mod tests {
         let config = SupabaseConfig::new("https://example.supabase.co", "key");
         assert_eq!(config.rest_url(), "https://example.supabase.co/rest/v1");
         assert_eq!(config.auth_url(), "https://example.supabase.co/auth/v1");
-        assert_eq!(config.storage_url(), "https://example.supabase.co/storage/v1");
-        assert_eq!(config.realtime_url(), "wss://example.supabase.co/realtime/v1");
-        assert_eq!(config.functions_url(), "https://example.supabase.co/functions/v1");
+        assert_eq!(
+            config.storage_url(),
+            "https://example.supabase.co/storage/v1"
+        );
+        assert_eq!(
+            config.realtime_url(),
+            "wss://example.supabase.co/realtime/v1"
+        );
+        assert_eq!(
+            config.functions_url(),
+            "https://example.supabase.co/functions/v1"
+        );
     }
 
     #[test]

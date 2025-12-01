@@ -5,9 +5,7 @@
 //! own implementations while maintaining compatibility with the main client.
 
 use crate::error::Result;
-use async_trait::async_trait;
 use serde::{de::DeserializeOwned, Serialize};
-use std::future::Future;
 
 // Re-export async_trait for implementors
 pub use async_trait::async_trait;
@@ -20,7 +18,7 @@ pub use async_trait::async_trait;
 pub trait AuthProvider: Send + Sync {
     /// The user type returned by auth operations.
     type User: DeserializeOwned + Send;
-    
+
     /// The session type.
     type Session: DeserializeOwned + Send;
 
@@ -70,12 +68,7 @@ pub trait StorageProvider: Send + Sync {
     fn get_public_url(&self, bucket: &str, path: &str) -> String;
 
     /// Create a signed URL for temporary access.
-    async fn create_signed_url(
-        &self,
-        bucket: &str,
-        path: &str,
-        expires_in: u64,
-    ) -> Result<String>;
+    async fn create_signed_url(&self, bucket: &str, path: &str, expires_in: u64) -> Result<String>;
 }
 
 /// A storage object (file or folder).

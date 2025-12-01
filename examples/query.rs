@@ -27,7 +27,9 @@ async fn main() -> Result<()> {
     let _query = client.from("users").select("id, name, email");
 
     // Select with relations (foreign key joins)
-    let _query = client.from("posts").select("id, title, author:users(name, email)");
+    let _query = client
+        .from("posts")
+        .select("id, title, author:users(name, email)");
 
     // =========================================================================
     // Filters
@@ -47,10 +49,17 @@ async fn main() -> Result<()> {
         .lt("price", "500");
 
     // Greater than or equal / Less than or equal
-    let _query = client.from("orders").select("*").gte("quantity", "10").lte("quantity", "100");
+    let _query = client
+        .from("orders")
+        .select("*")
+        .gte("quantity", "10")
+        .lte("quantity", "100");
 
     // Pattern matching
-    let _query = client.from("users").select("*").like("email", "%@gmail.com");
+    let _query = client
+        .from("users")
+        .select("*")
+        .like("email", "%@gmail.com");
 
     // Case-insensitive pattern matching
     let _query = client.from("users").select("*").ilike("name", "%john%");
@@ -68,10 +77,11 @@ async fn main() -> Result<()> {
     // Full-text search
     // =========================================================================
 
-    let _query = client
-        .from("posts")
-        .select("*")
-        .fts("content", "rust programming", Some("english"));
+    let _query =
+        client
+            .from("posts")
+            .select("*")
+            .fts("content", "rust programming", Some("english"));
 
     // =========================================================================
     // Ordering and pagination
