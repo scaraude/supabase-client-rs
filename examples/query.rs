@@ -11,8 +11,9 @@ use supabase_client_rs::{create_client, Result};
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    dotenvy::dotenv().ok();
     let url = std::env::var("SUPABASE_URL").expect("SUPABASE_URL must be set");
-    let key = std::env::var("SUPABASE_KEY").expect("SUPABASE_KEY must be set");
+    let key = std::env::var("SUPABASE_API_KEY").expect("SUPABASE_API_KEY must be set");
 
     let client = create_client(&url, &key)?;
 

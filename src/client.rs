@@ -259,11 +259,11 @@ impl SupabaseClient {
         Self::with_config(new_config)
     }
 
+    /*
     // =========================================================================
     // Future: Auth, Storage, Functions, Realtime
     // These will be enabled when community crates are available
     // =========================================================================
-
     /// Access the Auth client.
     ///
     /// **Note:** This requires an auth provider to be set up.
@@ -290,6 +290,7 @@ impl SupabaseClient {
     pub fn functions(&self) -> &dyn crate::traits::FunctionsProvider {
         todo!("Functions provider not yet implemented - contribute at supabase-functions-rs!")
     }
+    */
 
     // =========================================================================
     // Realtime - Integration with supabase-realtime-rs

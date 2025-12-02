@@ -74,11 +74,17 @@ pub trait StorageProvider: Send + Sync {
 /// A storage object (file or folder).
 #[derive(Debug, Clone, serde::Deserialize, serde::Serialize)]
 pub struct StorageObject {
+    /// The name of the file or folder
     pub name: String,
+    /// Optional unique identifier
     pub id: Option<String>,
+    /// Timestamp of last update
     pub updated_at: Option<String>,
+    /// Timestamp of creation
     pub created_at: Option<String>,
+    /// Timestamp of last access
     pub last_accessed_at: Option<String>,
+    /// Optional metadata as JSON
     pub metadata: Option<serde_json::Value>,
 }
 
@@ -96,6 +102,3 @@ pub trait FunctionsProvider: Send + Sync {
     where
         T: Serialize + Send + Sync;
 }
-
-// Note: Realtime functionality is provided directly through supabase-realtime-rs
-// when the "realtime" feature is enabled. See SupabaseClient::realtime() for usage.

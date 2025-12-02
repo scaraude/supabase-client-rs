@@ -24,9 +24,13 @@ pub enum Error {
     /// PostgREST-specific error
     #[error("PostgREST error: {message}")]
     PostgREST {
+        /// The error message
         message: String,
+        /// Optional error code
         code: Option<String>,
+        /// Optional error details
         details: Option<String>,
+        /// Optional hint for fixing the error
         hint: Option<String>,
     },
 
