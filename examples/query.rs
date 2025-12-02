@@ -145,26 +145,34 @@ async fn main() -> Result<()> {
     // Execute a real query (uncomment to test)
     // =========================================================================
 
-    // let response = client
-    //     .from("your_table")
-    //     .select("*")
-    //     .limit(5)
-    //     .execute()
-    //     .await?;
-    //
-    // match response.status().is_success() {
-    //     true => {
-    //         let body = response.text().await.unwrap_or_default();
-    //         let data: serde_json::Value = serde_json::from_str(&body)?;
-    //         println!("{}", serde_json::to_string_pretty(&data)?);
-    //     }
-    //     false => {
-    //         eprintln!("Error: {} - {}", response.status(), response.text().await.unwrap_or_default());
-    //     }
-    // }
+    let response = client
+        .from("users")
+        .select("*")
+        .limit(5)
+        .execute()
+        .await
+        .map_err(|e| supabase_client_rs::Error::config(format!("Request failed: {}", e)))?;
+
+    match response.status().is_success() {
+        true => {
+            let body = response.text().await.map_err(|e| {
+                supabase_client_rs::Error::config(format!("Failed to read response: {}", e))
+            })?;
+            let data: serde_json::Value = serde_json::from_str(&body)?;
+            println!("{}", serde_json::to_string_pretty(&data)?);
+        }
+        false => {
+            let response_status = response.status();
+            let error_text = response
+                .text()
+                .await
+                .unwrap_or_else(|_| "Unable to read error response".to_string());
+            eprintln!("Error: {} - {}", response_status, error_text);
+        }
+    }
 
     println!("✓ All query examples compiled successfully!");
-    println!("  Uncomment the execute section to run against your Supabase project.");
+    // println!("  Uncomment the execute section to run against your Supabase project.");
 
     Ok(())
 }
