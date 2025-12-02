@@ -4,13 +4,15 @@ use crate::config::SupabaseConfig;
 use crate::error::{Error, Result};
 use postgrest::Postgrest;
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue, AUTHORIZATION};
-use std::sync::Arc;
 
-/// The main Supabase client./*  */
+#[cfg(feature = "realtime")]
+use supabase_realtime_rs::{RealtimeClient, RealtimeClientOptions};
+
+/// The main Supabase client.
 ///
 /// This client provides access to all Supabase services:
 /// - Database queries via PostgREST (`.from()`)
-/// - Realtime subscriptions (`.channel()`) - requires `realtime` feature
+/// - Realtime subscriptions (`.realtime()`) - requires `realtime` feature
 /// - Authentication (`.auth()`) - when community crate is available
 /// - Storage (`.storage()`) - when community crate is available
 /// - Edge Functions (`.functions()`) - when community crate is available
@@ -43,6 +45,8 @@ pub struct SupabaseClient {
     config: SupabaseConfig,
     http: reqwest::Client,
     postgrest: Postgrest,
+    #[cfg(feature = "realtime")]
+    realtime: std::sync::Arc<RealtimeClient>,
 }
 
 impl SupabaseClient {
@@ -131,10 +135,25 @@ impl SupabaseClient {
             .insert_header("apikey", &config.api_key)
             .insert_header("Authorization", &auth_value);
 
+        // Build Realtime client if feature is enabled
+        #[cfg(feature = "realtime")]
+        let realtime = {
+            let realtime_client = RealtimeClient::new(
+                &config.realtime_url(),
+                RealtimeClientOptions {
+                    api_key: config.api_key.clone(),
+                    ..Default::default()
+                },
+            )?;
+            std::sync::Arc::new(realtime_client)
+        };
+
         Ok(Self {
             config: config.clone(),
             http,
             postgrest,
+            #[cfg(feature = "realtime")]
+            realtime,
         })
     }
 
@@ -273,31 +292,49 @@ impl SupabaseClient {
     }
 
     // =========================================================================
-    // Realtime - Placeholder for your supabase-realtime-rs integration
+    // Realtime - Integration with supabase-realtime-rs
     // =========================================================================
 
-    /// Create a realtime channel.
+    /// Get the Realtime client.
     ///
-    /// **Note:** This is a placeholder for `supabase-realtime-rs` integration.
+    /// Requires the `realtime` feature to be enabled.
     ///
-    /// # Example (future API)
+    /// # Example
     ///
-    /// ```rust,ignore
-    /// let channel = client.channel("room:lobby");
-    /// channel.on("broadcast", |payload| {
-    ///     println!("Received: {:?}", payload);
-    /// });
+    /// ```rust,no_run
+    /// # #[cfg(feature = "realtime")]
+    /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+    /// # use supabase_rs::SupabaseClient;
+    /// # use supabase_realtime_rs::{ChannelEvent, RealtimeChannelOptions};
+    /// # let client = SupabaseClient::new("url", "key")?;
+    /// // Get the realtime client
+    /// let realtime = client.realtime();
+    ///
+    /// // Connect to realtime
+    /// realtime.connect().await?;
+    ///
+    /// // Create a channel
+    /// let channel = realtime.channel("room:lobby", RealtimeChannelOptions::default()).await;
+    /// let mut rx = channel.on(ChannelEvent::broadcast("message")).await;
     /// channel.subscribe().await?;
+    ///
+    /// // Listen for messages
+    /// tokio::spawn(async move {
+    ///     while let Some(msg) = rx.recv().await {
+    ///         println!("Received: {:?}", msg);
+    ///     }
+    /// });
+    /// # Ok(())
+    /// # }
     /// ```
-    pub fn channel(&self, _name: &str) -> RealtimeChannelPlaceholder {
-        RealtimeChannelPlaceholder {
-            config: self.config.clone(),
-        }
+    #[cfg(feature = "realtime")]
+    pub fn realtime(&self) -> &RealtimeClient {
+        &self.realtime
     }
 
     /// Get the Realtime WebSocket URL.
     ///
-    /// Use this to initialize your `supabase-realtime-rs` client.
+    /// Use this to initialize your own `supabase-realtime-rs` client if needed.
     pub fn realtime_url(&self) -> String {
         self.config.realtime_url()
     }
@@ -309,26 +346,5 @@ impl std::fmt::Debug for SupabaseClient {
             .field("url", &self.config.url)
             .field("schema", &self.config.schema)
             .finish_non_exhaustive()
-    }
-}
-
-/// Placeholder for realtime channel functionality.
-///
-/// Replace this with actual `supabase-realtime-rs` integration.
-#[derive(Debug)]
-pub struct RealtimeChannelPlaceholder {
-    #[allow(dead_code)]
-    config: SupabaseConfig,
-}
-
-impl RealtimeChannelPlaceholder {
-    /// Subscribe to the channel.
-    ///
-    /// **Placeholder** - integrate with `supabase-realtime-rs`.
-    pub async fn subscribe(&self) -> Result<()> {
-        Err(Error::FeatureNotEnabled(
-            "Realtime",
-            "Integrate with supabase-realtime-rs",
-        ))
     }
 }

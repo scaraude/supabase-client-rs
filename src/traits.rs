@@ -97,19 +97,5 @@ pub trait FunctionsProvider: Send + Sync {
         T: Serialize + Send + Sync;
 }
 
-/// Realtime provider trait.
-///
-/// This is a simplified interface - your `supabase-realtime-rs` can implement this.
-pub trait RealtimeProvider: Send + Sync {
-    /// The channel type.
-    type Channel;
-
-    /// Create or get a channel.
-    fn channel(&self, name: &str) -> Self::Channel;
-
-    /// Remove a channel.
-    fn remove_channel(&self, name: &str);
-
-    /// Get all active channels.
-    fn get_channels(&self) -> Vec<String>;
-}
+// Note: Realtime functionality is provided directly through supabase-realtime-rs
+// when the "realtime" feature is enabled. See SupabaseClient::realtime() for usage.

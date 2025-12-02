@@ -75,3 +75,11 @@ impl Error {
         }
     }
 }
+
+/// Convert RealtimeError to our Error type when the realtime feature is enabled
+#[cfg(feature = "realtime")]
+impl From<supabase_realtime_rs::RealtimeError> for Error {
+    fn from(err: supabase_realtime_rs::RealtimeError) -> Self {
+        Self::Realtime(err.to_string())
+    }
+}

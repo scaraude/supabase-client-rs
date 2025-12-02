@@ -21,7 +21,7 @@ url = "2"
 
 # Supabase ecosystem
 postgrest = "1"
-# supabase-realtime-rs = { git = "https://github.com/scaraude/supabase-realtime-rs" }
+supabase-realtime-rs = { version = "0.1.1", optional = true }
 
 # Utilities
 tracing = "0.1"
@@ -31,13 +31,13 @@ async-trait = "0.1"
 [dev-dependencies]
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
 dotenvy = "0.15"
+chrono = "0.4"
 
 [features]
 default = ["rustls"]
 rustls = ["reqwest/rustls-tls"]
 native-tls = ["reqwest/native-tls"]
-# Enable when realtime crate is ready
-# realtime = ["supabase-realtime-rs"]
+realtime = ["supabase-realtime-rs"]
 
 [[example]]
 name = "basic"
@@ -46,3 +46,8 @@ path = "examples/basic.rs"
 [[example]]
 name = "query"
 path = "examples/query.rs"
+
+[[example]]
+name = "realtime"
+path = "examples/realtime.rs"
+required-features = ["realtime"]

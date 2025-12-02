@@ -13,7 +13,7 @@ This crate provides a unified interface to Supabase services by composing existi
 | Service | Status | Crate |
 |---------|--------|-------|
 | **Database (PostgREST)** | ✅ Ready | [`postgrest-rs`](https://crates.io/crates/postgrest) |
-| **Realtime** | 🔧 Integration ready | [`supabase-realtime-rs`](https://github.com/scaraude/supabase-realtime-rs) |
+| **Realtime** | ✅ Ready | [`supabase-realtime-rs`](https://github.com/scaraude/supabase-realtime-rs) |
 | **Auth** | 📦 Trait defined | Community: TBD |
 | **Storage** | 📦 Trait defined | Community: TBD |
 | **Edge Functions** | 📦 Trait defined | Community: TBD |
@@ -133,21 +133,53 @@ let auth_client = client.with_jwt(user_jwt)?;
 
 ## Realtime Integration
 
-Get the WebSocket URL for use with `supabase-realtime-rs`:
+Enable the `realtime` feature to use Supabase Realtime:
+
+```toml
+[dependencies]
+supabase-rs = { version = "0.1", features = ["realtime"] }
+```
+
+Then use the realtime client:
 
 ```rust
-let realtime_url = client.realtime_url();
-// Use with your realtime client
+use supabase_realtime_rs::{ChannelEvent, RealtimeChannelOptions};
+
+// Get the realtime client
+let realtime = client.realtime();
+
+// Connect to realtime
+realtime.connect().await?;
+
+// Subscribe to a channel
+let channel = realtime.channel("room:lobby", RealtimeChannelOptions::default()).await;
+let mut rx = channel.on(ChannelEvent::broadcast("message")).await;
+channel.subscribe().await?;
+
+// Send a message
+channel.send(
+    ChannelEvent::broadcast("message"),
+    serde_json::json!({"text": "Hello from Rust!"})
+).await?;
+
+// Listen for messages
+tokio::spawn(async move {
+    while let Some(msg) = rx.recv().await {
+        println!("Received: {:?}", msg);
+    }
+});
 ```
+
+See [`examples/realtime.rs`](examples/realtime.rs) for a complete example including presence tracking and database changes.
 
 ## Contributing
 
 Contributions are welcome! Areas that need work:
 
+- [x] **Realtime** - ✅ Integrated with `supabase-realtime-rs`
 - [ ] **Auth client** - Implement `AuthProvider` trait
-- [ ] **Storage client** - Implement `StorageProvider` trait  
+- [ ] **Storage client** - Implement `StorageProvider` trait
 - [ ] **Functions client** - Implement `FunctionsProvider` trait
-- [ ] **Better Realtime integration** - Tighter coupling with `supabase-realtime-rs`
 
 See the `traits` module for the interfaces to implement.
 

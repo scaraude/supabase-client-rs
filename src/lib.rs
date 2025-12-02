@@ -135,6 +135,7 @@
 //!
 //! - `rustls` (default): Use rustls for TLS
 //! - `native-tls`: Use native TLS instead of rustls
+//! - `realtime`: Enable Supabase Realtime support (requires `supabase-realtime-rs`)
 
 #![warn(missing_docs)]
 #![warn(rustdoc::missing_crate_level_docs)]
@@ -145,12 +146,16 @@ mod error;
 pub mod traits;
 
 // Re-export main types
-pub use client::{RealtimeChannelPlaceholder, SupabaseClient};
+pub use client::SupabaseClient;
 pub use config::SupabaseConfig;
 pub use error::{Error, Result};
 
 // Re-export postgrest for advanced usage
 pub use postgrest;
+
+// Re-export realtime types when feature is enabled
+#[cfg(feature = "realtime")]
+pub use supabase_realtime_rs;
 
 /// Create a new Supabase client.
 ///
