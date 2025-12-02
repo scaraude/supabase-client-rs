@@ -1492,9 +1492,9 @@ dependencies = [
 
 [[package]]
 name = "supabase-realtime-rs"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "daa8b281cd7d175664a94ad1a2003b16e828b7c45dab09a5e9e23e319a0b5c73"
+checksum = "4fb4c40413c4492300bc1f3a1de0db872c7b46a781ba0b921a1d054864ba6ae0"
 dependencies = [
  "chrono",
  "futures",

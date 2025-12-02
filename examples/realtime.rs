@@ -44,7 +44,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         // Create a channel
         println!("\nCreating channel 'room:lobby'...");
         let channel = realtime
-            .channel("room:lobby", RealtimeChannelOptions::default())
+            .channel(
+                "room:lobby",
+                RealtimeChannelOptions {
+                    broadcast_self: true,
+                    broadcast_ack: false,
+                    presence_key: None,
+                    is_private: false,
+                },
+            )
             .await;
 
         // Listen for broadcast messages

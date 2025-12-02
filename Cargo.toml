@@ -21,7 +21,7 @@ url = "2"
 
 # Supabase ecosystem
 postgrest = "1"
-supabase-realtime-rs = { version = "0.1.1", optional = true }
+supabase-realtime-rs = { version = "0.1.2", optional = true }
 
 # Utilities
 tracing = "0.1"
