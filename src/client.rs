@@ -20,7 +20,7 @@ use supabase_realtime_rs::{RealtimeClient, RealtimeClientOptions};
 /// # Example
 ///
 /// ```rust,no_run
-/// use supabase_rs::SupabaseClient;
+/// use supabase_client_rs::SupabaseClient;
 ///
 /// #[tokio::main]
 /// async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -60,7 +60,7 @@ impl SupabaseClient {
     /// # Example
     ///
     /// ```rust,no_run
-    /// use supabase_rs::SupabaseClient;
+    /// use supabase_client_rs::SupabaseClient;
     ///
     /// let client = SupabaseClient::new(
     ///     "https://your-project.supabase.co",
@@ -77,7 +77,7 @@ impl SupabaseClient {
     /// # Example
     ///
     /// ```rust,no_run
-    /// use supabase_rs::{SupabaseClient, SupabaseConfig};
+    /// use supabase_client_rs::{SupabaseClient, SupabaseConfig};
     /// use std::time::Duration;
     ///
     /// let config = SupabaseConfig::new(
@@ -164,7 +164,7 @@ impl SupabaseClient {
     /// # Example
     ///
     /// ```rust,no_run
-    /// # use supabase_rs::SupabaseClient;
+    /// # use supabase_client_rs::SupabaseClient;
     /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = SupabaseClient::new("url", "key")?;
     /// // Select all users
@@ -204,7 +204,7 @@ impl SupabaseClient {
     /// # Example
     ///
     /// ```rust,no_run
-    /// # use supabase_rs::SupabaseClient;
+    /// # use supabase_client_rs::SupabaseClient;
     /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = SupabaseClient::new("url", "key")?;
     /// let result = client
@@ -245,7 +245,7 @@ impl SupabaseClient {
     /// # Example
     ///
     /// ```rust,no_run
-    /// # use supabase_rs::SupabaseClient;
+    /// # use supabase_client_rs::SupabaseClient;
     /// # fn example() -> Result<(), Box<dyn std::error::Error>> {
     /// # let client = SupabaseClient::new("url", "key")?;
     /// let jwt = "user-jwt-token";
@@ -304,7 +304,7 @@ impl SupabaseClient {
     /// ```rust,no_run
     /// # #[cfg(feature = "realtime")]
     /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
-    /// # use supabase_rs::SupabaseClient;
+    /// # use supabase_client_rs::SupabaseClient;
     /// # use supabase_realtime_rs::{ChannelEvent, RealtimeChannelOptions};
     /// # let client = SupabaseClient::new("url", "key")?;
     /// // Get the realtime client

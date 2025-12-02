@@ -1,4 +1,4 @@
-//! # supabase-rs
+//! # supabase-client-rs
 //!
 //! A Rust client for [Supabase](https://supabase.com), the open-source Firebase alternative.
 //!
@@ -12,7 +12,7 @@
 //! ## Quick Start
 //!
 //! ```rust,no_run
-//! use supabase_rs::SupabaseClient;
+//! use supabase_client_rs::SupabaseClient;
 //!
 //! #[tokio::main]
 //! async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -42,7 +42,7 @@
 //! The client wraps `postgrest-rs` and provides a fluent API for database operations:
 //!
 //! ```rust,no_run
-//! # use supabase_rs::SupabaseClient;
+//! # use supabase_client_rs::SupabaseClient;
 //! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
 //! # let client = SupabaseClient::new("url", "key")?;
 //! // Select with filters
@@ -92,7 +92,7 @@
 //! For advanced configuration, use `SupabaseConfig`:
 //!
 //! ```rust,no_run
-//! use supabase_rs::{SupabaseClient, SupabaseConfig};
+//! use supabase_client_rs::{SupabaseClient, SupabaseConfig};
 //! use std::time::Duration;
 //!
 //! let config = SupabaseConfig::new(
@@ -111,7 +111,7 @@
 //! After a user signs in, set their JWT:
 //!
 //! ```rust,no_run
-//! # use supabase_rs::SupabaseClient;
+//! # use supabase_client_rs::SupabaseClient;
 //! # fn example() -> Result<(), Box<dyn std::error::Error>> {
 //! # let client = SupabaseClient::new("url", "key")?;
 //! // Get JWT from your auth flow
@@ -164,7 +164,7 @@ pub use supabase_realtime_rs;
 /// # Example
 ///
 /// ```rust,no_run
-/// use supabase_rs::create_client;
+/// use supabase_client_rs::create_client;
 ///
 /// let client = create_client(
 ///     "https://your-project.supabase.co",

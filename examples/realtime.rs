@@ -17,7 +17,7 @@
 //! because the WebSocket connection has a timeout or was disconnected.
 //! This is normal for idle connections and the example handles it gracefully.
 
-use supabase_rs::SupabaseClient;
+use supabase_client_rs::SupabaseClient;
 
 #[cfg(feature = "realtime")]
 use supabase_realtime_rs::{ChannelEvent, RealtimeChannelOptions};

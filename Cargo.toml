@@ -1,11 +1,11 @@
 [package]
-name = "supabase-rs"
+name = "supabase-client-rs"
 version = "0.1.0"
 edition = "2021"
-authors = ["Ludo <your-email@example.com>"]
+authors = ["Scaraude"]
 description = "A Rust client for Supabase, composing postgrest-rs and supabase-realtime-rs"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/your-username/supabase-rs"
+repository = "https://github.com/Scaraude/supabase-client-rs"
 keywords = ["supabase", "postgres", "realtime", "database", "api"]
 categories = ["api-bindings", "database", "web-programming"]
 readme = "README.md"

@@ -1,10 +1,10 @@
-# supabase-rs
+# supabase-client-rs
 
 A Rust client for [Supabase](https://supabase.com), the open-source Firebase alternative.
 
-[![Crates.io](https://img.shields.io/crates/v/supabase-rs.svg)](https://crates.io/crates/supabase-rs)
-[![Documentation](https://docs.rs/supabase-rs/badge.svg)](https://docs.rs/supabase-rs)
-[![License](https://img.shields.io/crates/l/supabase-rs.svg)](LICENSE)
+[![Crates.io](https://img.shields.io/crates/v/supabase-client-rs.svg)](https://crates.io/crates/supabase-client-rs)
+[![Documentation](https://docs.rs/supabase-client-rs/badge.svg)](https://docs.rs/supabase-client-rs)
+[![License](https://img.shields.io/crates/l/supabase-client-rs.svg)](LICENSE)
 
 ## Overview
 
@@ -22,14 +22,14 @@ This crate provides a unified interface to Supabase services by composing existi
 
 ```toml
 [dependencies]
-supabase-rs = "0.1"
+supabase-client-rs = "0.1"
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
 ```
 
 ## Quick Start
 
 ```rust
-use supabase_rs::create_client;
+use supabase_client_rs::create_client;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -102,7 +102,7 @@ let result = client
 ## Configuration
 
 ```rust
-use supabase_rs::{SupabaseClient, SupabaseConfig};
+use supabase_client_rs::{SupabaseClient, SupabaseConfig};
 use std::time::Duration;
 
 let config = SupabaseConfig::new(
@@ -137,7 +137,7 @@ Enable the `realtime` feature to use Supabase Realtime:
 
 ```toml
 [dependencies]
-supabase-rs = { version = "0.1", features = ["realtime"] }
+supabase-client-rs = { version = "0.1", features = ["realtime"] }
 ```
 
 Then use the realtime client:
