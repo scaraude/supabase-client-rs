@@ -7,7 +7,7 @@
 //! cargo run --example query
 //! ```
 
-use supabase_client_rs::{create_client, Result};
+use supabase_client_rs::{Result, create_client};
 
 #[tokio::main]
 async fn main() -> Result<()> {

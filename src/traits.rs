@@ -5,7 +5,7 @@
 //! own implementations while maintaining compatibility with the main client.
 
 use crate::error::Result;
-use serde::{de::DeserializeOwned, Serialize};
+use serde::{Serialize, de::DeserializeOwned};
 
 // Re-export async_trait for implementors
 pub use async_trait::async_trait;

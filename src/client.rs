@@ -3,7 +3,7 @@
 use crate::config::SupabaseConfig;
 use crate::error::{Error, Result};
 use postgrest::Postgrest;
-use reqwest::header::{HeaderMap, HeaderName, HeaderValue, AUTHORIZATION};
+use reqwest::header::{AUTHORIZATION, HeaderMap, HeaderName, HeaderValue};
 
 #[cfg(feature = "realtime")]
 use supabase_realtime_rs::{RealtimeClient, RealtimeClientOptions};
