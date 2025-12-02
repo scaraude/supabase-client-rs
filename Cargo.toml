@@ -1,11 +1,14 @@
 [package]
 name = "supabase-client-rs"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
+rust-version = "1.85"
 authors = ["Scaraude"]
-description = "A Rust client for Supabase, composing postgrest-rs and supabase-realtime-rs"
-license = "MIT OR Apache-2.0"
+description = "A unified Rust client for Supabase with database, realtime, auth, storage, and functions support"
+license = "MIT"
 repository = "https://github.com/Scaraude/supabase-client-rs"
+homepage = "https://github.com/Scaraude/supabase-client-rs"
+documentation = "https://docs.rs/supabase-client-rs"
 keywords = ["supabase", "postgres", "realtime", "database", "api"]
 categories = ["api-bindings", "database", "web-programming"]
 readme = "README.md"

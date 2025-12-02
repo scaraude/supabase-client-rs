@@ -1,29 +1,28 @@
 # supabase-client-rs
 
-A Rust client for [Supabase](https://supabase.com), the open-source Firebase alternative.
+A unified Rust client for [Supabase](https://supabase.com), the open-source Firebase alternative.
 
 [![Crates.io](https://img.shields.io/crates/v/supabase-client-rs.svg)](https://crates.io/crates/supabase-client-rs)
 [![Documentation](https://docs.rs/supabase-client-rs/badge.svg)](https://docs.rs/supabase-client-rs)
-[![License](https://img.shields.io/crates/l/supabase-client-rs.svg)](LICENSE)
+[![License](https://img.shields.io/crates/l/supabase-client-rs.svg)](LICENSE-MIT)
+[![Rust](https://img.shields.io/badge/rust-1.85%2B-blue.svg)](https://www.rust-lang.org)
 
 ## Overview
 
 This crate provides a unified interface to Supabase services by composing existing community crates:
 
-| Service | Status | Crate |
-|---------|--------|-------|
-| **Database (PostgREST)** | ✅ Ready | [`postgrest-rs`](https://crates.io/crates/postgrest) |
-| **Realtime** | ✅ Ready | [`supabase-realtime-rs`](https://github.com/scaraude/supabase-realtime-rs) |
-| **Auth** | 📦 Trait defined | Community: TBD |
-| **Storage** | 📦 Trait defined | Community: TBD |
-| **Edge Functions** | 📦 Trait defined | Community: TBD |
+| Service                  | Status           | Crate                                                                      |
+| ------------------------ | ---------------- | -------------------------------------------------------------------------- |
+| **Database (PostgREST)** | ✅ Ready         | [`postgrest-rs`](https://crates.io/crates/postgrest)                       |
+| **Realtime**             | ✅ Ready         | [`supabase-realtime-rs`](https://github.com/scaraude/supabase-realtime-rs) |
+| **Auth**                 | 📦 Trait defined | Community: TBD                                                             |
+| **Storage**              | 📦 Trait defined | Community: TBD                                                             |
+| **Edge Functions**       | 📦 Trait defined | Community: TBD                                                             |
 
 ## Installation
 
-```toml
-[dependencies]
-supabase-client-rs = "0.1"
-tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+```bash
+cargo add supabase-client-rs
 ```
 
 ## Quick Start
@@ -135,9 +134,8 @@ let auth_client = client.with_jwt(user_jwt)?;
 
 Enable the `realtime` feature to use Supabase Realtime:
 
-```toml
-[dependencies]
-supabase-client-rs = { version = "0.1", features = ["realtime"] }
+```bash
+cargo add supabase-client-rs --features "realtime"
 ```
 
 Then use the realtime client:
@@ -172,6 +170,15 @@ tokio::spawn(async move {
 
 See [`examples/realtime.rs`](examples/realtime.rs) for a complete example including presence tracking and database changes.
 
+## Features
+
+- **Database Operations**: Full PostgREST integration with select, insert, update, delete, and RPC support
+- **Realtime**: Subscribe to database changes, broadcast messages, and presence tracking
+- **Type-safe**: Leverage Rust's type system for reliable code
+- **Async/Await**: Built on Tokio for efficient async operations
+- **Flexible Configuration**: Custom headers, schemas, and timeouts
+- **JWT Authentication**: Row Level Security support with JWT tokens
+
 ## Contributing
 
 Contributions are welcome! Areas that need work:
@@ -185,9 +192,11 @@ See the `traits` module for the interfaces to implement.
 
 ## License
 
-Licensed under either of:
-
-- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE))
 - MIT license ([LICENSE-MIT](LICENSE-MIT))
 
-at your option.
+## Acknowledgments
+
+This project builds on the excellent work of:
+
+- [postgrest-rs](https://github.com/supabase-community/postgrest-rs) - PostgREST client
+- [supabase-realtime-rs](https://github.com/scaraude/supabase-realtime-rs) - Realtime client
