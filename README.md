@@ -181,7 +181,7 @@ See [`examples/realtime.rs`](examples/realtime.rs) for a complete example includ
 
 ## Real-World Demo
 
-Check out realtime-chat-demo - a full-featured chat application built with this library, demonstrating broadcast messaging, presence tracking, and WebSocket connection management.
+Check out [**chat-demo**](https://github.com/scaraude/realtime-chat-demo) - a full-featured chat application built with this library, demonstrating broadcast messaging, presence tracking, and WebSocket connection management.
 
 ## Contributing
 
