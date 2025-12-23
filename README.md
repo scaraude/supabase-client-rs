@@ -179,6 +179,10 @@ See [`examples/realtime.rs`](examples/realtime.rs) for a complete example includ
 - **Flexible Configuration**: Custom headers, schemas, and timeouts
 - **JWT Authentication**: Row Level Security support with JWT tokens
 
+## Real-World Demo
+
+Check out realtime-chat-demo - a full-featured chat application built with this library, demonstrating broadcast messaging, presence tracking, and WebSocket connection management.
+
 ## Contributing
 
 Contributions are welcome! Areas that need work:
